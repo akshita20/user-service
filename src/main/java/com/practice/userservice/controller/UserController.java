@@ -40,10 +40,14 @@ public class UserController {
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getUsersById(@PathVariable(value = "id") int userId) {
         Optional<User> user = userService.getUser(userId);
-        if (user.isPresent())
-            return new ResponseEntity<>(user.get(), HttpStatus.OK);
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        ResponseEntity responseEntity;
+        if (user.isPresent()){
+            responseEntity = new ResponseEntity<>(user.get(), HttpStatus.OK);
+        }
+        else{
+            responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
     }
 
     /**
@@ -69,10 +73,14 @@ public class UserController {
     public ResponseEntity<User> updateUser(
             @PathVariable(value = "id") Integer userId, @Valid @RequestBody User user) {
         Optional<User> updatedUser = userService.updateUser(userId, user);
-        if (updatedUser.isPresent())
-            return new ResponseEntity<>(updatedUser.get(), HttpStatus.OK);
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        ResponseEntity responseEntity;
+        if (updatedUser.isPresent()){
+            responseEntity = new ResponseEntity<>(updatedUser.get(), HttpStatus.OK);
+        }
+        else{
+            responseEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return responseEntity;
 
     }
 
