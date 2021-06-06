@@ -3,6 +3,8 @@ package com.practice.userservice.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,13 +21,17 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "first_name", nullable = false)
+    @NotBlank
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
+    @NotBlank
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "email_address", nullable = false)
+    @NotBlank
+    @Email
+    @Column(name = "email_address")
     private String email;
 
     @Column(name = "created_at", nullable = false)

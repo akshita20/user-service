@@ -1,6 +1,7 @@
 package com.practice.userservice.controller;
 
 import com.practice.userservice.entity.User;
+import com.practice.userservice.exception.UserNotFoundException;
 import com.practice.userservice.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -56,13 +57,21 @@ class UserControllerTest {
     }
 
     @Test
-    void getUsersById() {
+    void getUsersById() throws UserNotFoundException {
         Mockito.when(userService.getUser(id1)).thenReturn(Optional.of(user1));
         User userResponse = userController.getUsersById(id1).getBody();
         Assertions.assertEquals(id1, userResponse.getId());
         Assertions.assertEquals(firstName1, userResponse.getFirstName());
         Assertions.assertEquals(lastName1, userResponse.getLastName());
         Assertions.assertEquals(email1,userResponse.getEmail());
+    }
+
+    @Test
+    void getUsersByIdNotFound(){
+        Mockito.when(userService.getUser(id1)).thenReturn(Optional.empty());
+        Assertions.assertThrows(UserNotFoundException.class, () -> {
+            userController.getUsersById(id1);
+        });
     }
 
     @Test
@@ -73,10 +82,18 @@ class UserControllerTest {
     }
 
     @Test
-    void updateUser() {
+    void updateUser() throws UserNotFoundException {
         Mockito.when(userService.updateUser(id1, user1)).thenReturn(Optional.of(user1));
         User userResponse = userController.updateUser(id1, user1).getBody();
         Assertions.assertEquals(user1, userResponse);
+    }
+
+    @Test
+    void updateUserNotFound(){
+        Mockito.when(userService.updateUser(id1, user1)).thenReturn(Optional.empty());
+        Assertions.assertThrows(UserNotFoundException.class, () -> {
+            userController.updateUser(id1, user1);
+        });
     }
 
     @Test
