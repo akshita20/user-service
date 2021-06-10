@@ -1,0 +1,1 @@
+insert into users (first_name, last_name, email_address,created_at) values ('Test ','User', 'test@test.com',CURRENT_TIMESTAMP());
