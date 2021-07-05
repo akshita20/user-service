@@ -1,5 +1,6 @@
 package com.practice.userservice.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,14 +22,17 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @ApiModelProperty(value = "first name of the user", required = true)
     @NotBlank
     @Column(name = "first_name")
     private String firstName;
 
+    @ApiModelProperty(value = "last name of the user", required = true)
     @NotBlank
     @Column(name = "last_name")
     private String lastName;
 
+    @ApiModelProperty(value = "first name of the user", required = true)
     @NotBlank
     @Email
     @Column(name = "email_address")
