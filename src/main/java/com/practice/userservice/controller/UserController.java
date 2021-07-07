@@ -7,6 +7,7 @@ import com.practice.userservice.service.IUserService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,7 +47,7 @@ public class UserController {
             @ApiResponse(code = 200, message = "Success"),
             @ApiResponse(code = 404, message = "User not found. ")
     })
-    @GetMapping("/users/{id}")
+    @GetMapping(value = "/users/{id}", produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> getUsersById(
             @ApiParam(name="id", value = "The ID of the user.", required = true)
             @PathVariable(value = "id") int userId) throws UserNotFoundException {
@@ -62,7 +63,7 @@ public class UserController {
      * @return the user
      */
     @ApiOperation(value = "Creates a new user.", response = User.class)
-    @PostMapping("/users")
+    @PostMapping(value = "/users", produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> createUser(
             @ApiParam(name="user", value = "The user.", required = true)
             @Valid @RequestBody User user) {
@@ -82,7 +83,7 @@ public class UserController {
             @ApiResponse(code = 200, message = "Success"),
             @ApiResponse(code = 404, message = "User not found. ")
     })
-    @PutMapping("/users/{id}")
+    @PutMapping(value = "/users/{id}", produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> updateUser(
             @ApiParam(name="id", value = "The ID of the user.", required = true)
             @PathVariable(value = "id") Integer userId,
